@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>For you my cute Saby 💙</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", system-ui, sans-serif;
+    }
+
+    .typewriter {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #dbe6ff;
+      letter-spacing: 0.3px;
+      white-space: pre-line;
+      overflow: hidden;
+      border-right: 2px solid #7fb5ff;
+      width: 0;
+      animation: typing 6s steps(60, end) forwards, blink 0.8s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #4f8cff 0, #020817 55%, #000000 100%);
+      color: #f5f7ff;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 40px;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .hidden { display: none !important; }
+
+    /* Floating hearts */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      color: #7fb5ff;
+      font-size: 18px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.7;
+      z-index: 0;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) translateX(0); opacity: 0.8; }
+      100% { transform: translateY(-120vh) translateX(20px); opacity: 0; }
+    }
+
+    /* Loading screen */
+    #loading-screen {
+      position: fixed;
+      inset: 0;
+      background: #020817;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+      animation: fadeOut 1s ease forwards;
+      animation-delay: 2.2s;
+    }
+
+    #loading-screen .kitty {
+      font-size: 3rem;
+      color: #7fb5ff;
+      animation: bounce 1s infinite;
+    }
+
+    #loading-screen p {
+      margin-top: 12px;
+      color: #9fb8ff;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    /* Splash screen */
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      background: #020817;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9998;
+      animation: splashFade 1.2s ease forwards;
+      animation-delay: 2.3s;
+    }
+
+    #splash-screen .kitty {
+      font-size: 4rem;
+      color: #7fb5ff;
+      animation: playful 1.2s ease;
+    }
+
+    #splash-screen p {
+      margin-top: 10px;
+      color: #9fb8ff;
+      font-size: 1rem;
+    }
+
+    @keyframes playful {
+      0% { transform: scale(0.4) rotate(-20deg); opacity: 0; }
+      60% { transform: scale(1.1) rotate(10deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes splashFade {
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    /* Main container */
+    .container {
+      width: min(900px, 92vw);
+      background: rgba(4, 10, 30, 0.88);
+      border-radius: 26px;
+      border: 1px solid rgba(120, 180, 255, 0.4);
+      box-shadow: 0 0 40px rgba(0, 140, 255, 0.35);
+      padding: 28px 26px 30px;
+      backdrop-filter: blur(18px);
+      position: relative;
+      overflow: visible;
+      margin: 0 auto;
+      z-index: 1;
+    }
+
+    /* Password screen */
+    #password-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      text-align: center;
+      animation: fadeIn 0.9s ease-out;
+    }
+
+    .tag {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #9fb8ff;
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 4vw, 2.7rem);
+      font-weight: 600;
+    }
+
+    .accent { color: #7fb5ff; }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: #c4d4ff;
+      max-width: 360px;
+      line-height: 1.5;
+    }
+
+    input[type="password"] {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(140, 190, 255, 0.7);
+      background: rgba(3, 10, 30, 0.9);
+      color: #e9f0ff;
+      min-width: 180px;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 20px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      background: linear-gradient(135deg, #4f8cff, #00e5ff);
+      color: #020617;
+      box-shadow: 0 10px 25px rgba(0, 140, 255, 0.5);
+      transition: 0.2s ease;
+    }
+
+    button:hover { transform: scale(1.03); }
+
+    .error {
+      font-size: 0.8rem;
+      color: #ff7b9c;
+      min-height: 1em;
+    }
+
+    /* Main content */
+    #main-content { animation: fadeIn 0.9s ease-out; }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(140, 190, 255, 0.7);
+      color: #c4d4ff;
+      background: rgba(5, 16, 45, 0.9);
+    }
+
+    .hello-kitty {
+      font-size: 1.6rem;
+      filter: drop-shadow(0 0 8px rgba(255, 182, 193, 0.8));
+    }
+
+    .grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 2fr 1.5fr;
+      gap: 18px;
+    }
+
+    .card {
+      background: rgba(3, 10, 30, 0.95);
+      border-radius: 20px;
+      border: 1px solid rgba(120, 180, 255, 0.5);
+      padding: 16px;
+    }
+
+    /* Gift message (HIDDEN by default) */
+    .gift-message {
+      margin-top: 10px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: 0.4s ease;
+    }
+
+    .gift-message.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Gallery */
+    .gallery {
+      margin-top: 30px;
+    }
+
+    .gallery h3 {
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid rgba(120, 180, 255, 0.5);
+      transition: 0.3s ease;
+      cursor: pointer;
+    }
+
+    .gallery-grid img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(120, 180, 255, 0.6);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 720px) {
+      .grid { grid-template-columns: 1fr; }
+      .header-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Floating hearts -->
+  <script>
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "💙";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }
+    setInterval(createHeart, 600);
+  </script>
+
+  <!-- Loading screen -->
+  <div id="loading-screen">
+    <div class="kitty">♡</div>
+    <p>Loading something special...</p>
+  </div>
+
+  <!-- Splash screen -->
+  <div id="splash-screen">
+    <div class="kitty">♡ Hello Kitty ♡</div>
+    <p>Just for you, Saby</p>
+  </div>
+
+  <!-- Main container -->
+  <div class="container">
+
+    <!-- PASSWORD SCREEN -->
+    <div id="password-screen">
+      <div class="tag">Private page</div>
+      <h1>Hi <span class="accent">Saby</span>, this is just for you 💙</h1>
+      <p class="subtitle">
+        Someone who loves you way too much made this little corner of the internet just for you.
+      </p>
+
+      <input id="password-input" type="password" placeholder="Enter your secret name..." />
+      <button id="unlock-btn">Unlock 🔓</button>
+      <div id="error-msg" class="error"></div>
+
+      <p style="color:#9fb8ff; font-size:0.8rem;">
+        Hint: It's something i call you, only me 
+      </p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main-content" class="hidden">
+
+      <div class="header-row">
+        <div>
+          <div class="pill">💙 For Saby, from a person who loves you dearly</div>
+          <h2 style="margin-top:8px;">You’re my favorite person<br>in every universe.</h2>
+        </div>
+        <div class="hello-kitty">♡ Hello Kitty ♡</div>
+      </div>
+
+      <div class="grid">
+
+        <!-- LEFT -->
+        <div class="card">
+          <p id="love-letter" class="typewriter">
+          Wifey, today the world is full of red roses and sweet songs,
+          but my heart only sings for you.
+          You love psychology, you think like a philosopher,
+          you dream with the stars in astronomy,
+          you feel music and cars like freedom.
+          And me… I just want to be part of that universe you carry inside.
+
+          Not just someone walking beside you,
+          but the choice you make —
+          the one who stays when the world gets loud.
+          Fame, knowledge, every mountain I climb means nothing
+          if love isn’t there.
+          I want to be the driver with you,
+          the passenger with you,
+          the singer with you,
+          the thinker with you.
+
+          So on this Valentine’s Day, I’ll speak simply:
+          I want to marry you, wifey.
+          I want to be your partner, your supporter,
+          your husband, your forever.
+          Till stars fade, till songs stop, till silence comes —
+          I stay.
+          And when silence finally arrives,
+          when all meaning fades,
+          I’ll still whisper…
+          I am yours.
+          </p>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="card">
+          <h3>Your little surprise 🎁</h3>
+          <p>Click below to open your gift.</p>
+
+          <button id="gift-btn" style="margin-top:10px;">Open Gift 💌</button>
+
+          <!-- GIFT MESSAGE (hidden until click) -->
+          <div id="gift-message" class="gift-message">
+            On this Valentine’s Day, I want to ask you not only to be my Valentine, but to be my wife. 
+            I want to be your partner, your supporter, your forever. 
+            Wifey, will you marry me and -
+            Let me walk beside you through every road, every song, and every star?
+          </div>
+
+          <h4 style="margin-top:20px;">Soundtrack 🎧</h4>
+          <audio id="bg-music" controls style="width:100%; margin-top:8px;">
+            <source src="music\valentine.mp3" type="audio/mpeg" />
+          </audio>
+        </div>
+
+      </div>
+
+      <!-- GALLERY SECTION -->
+      <div class="gallery">
+        <h3>Our cute little Gallery 💙</h3>
+
+        <div class="gallery-grid">
+          <img src="photos\pic1.jpg" alt="pic1">
+          <img src="photos\pic2.jpg" alt="pic2">
+          <img src="photos\pic3.jpg" alt="pic3">
+          <img src="photos\pic4.jpg" alt="pic4">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const CORRECT_PASSWORD = "sabji"; // Change this to your desired password
+
+    const passwordInput = document.getElementById("password-input");
+    const unlockBtn = document.getElementById("unlock-btn");
+    const errorMsg = document.getElementById("error-msg");
+    const passwordScreen = document.getElementById("password-screen");
+    const mainContent = document.getElementById("main-content");
+
+    const giftBtn = document.getElementById("gift-btn");
+    const giftMessage = document.getElementById("gift-message");
+    const bgMusic = document.getElementById("bg-music");
+
+    function startTypewriter() {
+      const letter = document.getElementById("love-letter");
+      letter.style.animation = "typing 6s steps(60, end) forwards, blink 0.8s step-end infinite";
+    }
+    function unlock() {
+      const value = passwordInput.value.trim().toLowerCase();
+      if (!value) {
+        errorMsg.textContent = "Type something, sleepyhead.";
+        return;
+      }
+      if (value === CORRECT_PASSWORD) {
+        passwordScreen.classList.add("hidden");
+        mainContent.classList.remove("hidden");
+        startTypewriter();
+      } else {
+        errorMsg.textContent = "That’s not it. Try again.";
+      }
+    }
+
+    unlockBtn.addEventListener("click", unlock);
+    passwordInput.addEventListener("keydown", e => {
+      if (e.key === "Enter") unlock();
+    });
+
+    giftBtn.addEventListener("click", () => {
+      giftMessage.classList.add("visible");
+      bgMusic.play().catch(() => {});
+    });
+  </script>
+
+</body>
+</html>
